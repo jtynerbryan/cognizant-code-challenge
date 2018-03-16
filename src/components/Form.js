@@ -5,6 +5,7 @@ class Form extends React.Component {
 
   state = {
     apiKey: 'ce658e43d986d3db6fdafac97e5a006b',
+    numSelectFormVal: '',
     inputLength: 0,
     selectedCities: [],
     cities: []
@@ -21,24 +22,36 @@ class Form extends React.Component {
     // .then(res => console.log(res))
   }
 
-  handleNumSelect = (e) => {
-    console.log(e.target.value);
-    e.preventDefault()
-    if (parseInt(e.target.value, 10) < 4) {
-      alert('Please enter a valid number no less than 4')
-    }
+  handleNumSelectChange = (e) => {
     this.setState({
-      inputLength: e.target.value
+      numSelectFormVal: e.target.value
     })
   }
 
+  handlenumSelectSubmit = (e) => {
+    e.preventDefault();
+    let val = parseInt(this.state.numSelectFormVal, 10)
+    if (val < 4) {
+      alert('Please enter a valid number no less than 4')
+      this.setState({
+        numSelectFormVal: ''
+      })
+    } else {
+      this.setState({
+        inputLength: val
+      })
+    }
+  }
+
   render() {
+    console.log(this.state);
     if (this.state.inputLength < 4) {
       return (
         <div style={{margin: 'auto', width: '50%', textAlign: 'center'}}>
           <h1>Select how many cities you would like to find weather for (minimum of 4)</h1>
-          <form >
-            <input onChange={this.handleNumSelect} type='text' style={{borderColor: 'black', borderRadius: '5px', marginRight: '5px', fontSize: '20px', width: '30px'}}/>
+          <form onSubmit={this.handlenumSelectSubmit}>
+            <input onChange={this.handleNumSelectChange} type='text' value={this.state.numSelectFormVal} style={{borderColor: 'black', borderRadius: '5px', marginRight: '5px', fontSize: '20px', width: '30px'}}/>
+            <input type='submit' style={{borderColor: 'black', borderRadius: '5px', height: '25px'}}/>
           </form>
         </div>
       )
@@ -52,6 +65,7 @@ class Form extends React.Component {
           <h1>Enter cities to find weather for:</h1>
           <form>
             {inputs}
+            <input type='submit' style={{borderColor: 'black', borderRadius: '5px', height: '25px'}}/>
           </form>
         </div>
       )
