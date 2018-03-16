@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Form from './components/Form';
-import Results from './components/Results';
+import Loader from './components/Loader';
 import './App.css';
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
       <Router>
         <div>
           <Route exact path='/' component={Form}/>
-          <Route exact path='/results' component={Results}/>
+          <Route exact path='/loader' component={Loader}/>
         </div>
       </Router>
     );
