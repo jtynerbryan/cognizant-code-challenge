@@ -1,76 +1,57 @@
 import React from 'react';
-import Input from './Input'
 
 class Form extends React.Component {
 
   state = {
     apiKey: 'ce658e43d986d3db6fdafac97e5a006b',
-    numSelectFormVal: '',
-    inputLength: 0,
-    selectedCities: [],
+    citySearchVal: '',
     cities: []
   }
 
-  componentDidMount() {
-    // fetch('http://localhost:3000/cities?name=Boston')
-    // .then(res => res.json())
-    // .then(res => console.log(res))
-
-
-    // fetch('http://api.openweathermap.org/data/2.5/forecast?id=4317656&APPID=' + this.state.apiKey + '&units=imperial')
-    // .then(res => res.json())
-    // .then(res => console.log(res))
+  componentDidUpdate() {
+    if (this.state.cities.length >= 4) {
+      this.props.history.push('/results')
+    }
   }
 
-  handleNumSelectChange = (e) => {
+  handleChange = (e) => {
     this.setState({
-      numSelectFormVal: e.target.value
+      citySearchVal: e.target.value
     })
   }
 
-  handlenumSelectSubmit = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    let val = parseInt(this.state.numSelectFormVal, 10)
-    if (val < 4) {
-      alert('Please enter a valid number no less than 4')
+    let cities = this.state.citySearchVal.split(', ')
+    if (cities.length < 4) {
+      alert('Please enter at least 4 cities in the correct format')
       this.setState({
-        numSelectFormVal: ''
+        citySearchVal: ''
       })
     } else {
+      cities = cities.map(city => {
+        return city.charAt(0).toUpperCase() + city.slice(1)
+      })
       this.setState({
-        inputLength: val
+        cities: cities
       })
     }
   }
 
   render() {
-    console.log(this.state);
-    if (this.state.inputLength < 4) {
-      return (
-        <div style={{margin: 'auto', width: '50%', textAlign: 'center'}}>
-          <h1>Select how many cities you would like to find weather for (minimum of 4)</h1>
-          <form onSubmit={this.handlenumSelectSubmit}>
-            <input onChange={this.handleNumSelectChange} type='text' value={this.state.numSelectFormVal} style={{borderColor: 'black', borderRadius: '5px', marginRight: '5px', fontSize: '20px', width: '30px'}}/>
-            <input type='submit' style={{borderColor: 'black', borderRadius: '5px', height: '25px'}}/>
-          </form>
-        </div>
-      )
-    } else {
-      let inputs = []
-      for (let i = 0; i < this.state.inputLength; i++) {
-        inputs.push(<div key={i}><Input/></div>)
-      }
-      return (
-        <div style={{margin: 'auto', width: '50%', textAlign: 'center'}}>
-          <h1>Enter cities to find weather for:</h1>
-          <form>
-            {inputs}
-            <input type='submit' style={{borderColor: 'black', borderRadius: '5px', height: '25px'}}/>
-          </form>
-        </div>
-      )
-    }
+    return (
+      <div style={{width: '50%', textAlign: 'center', margin: 'auto', marginTop: '10px'}}>
+        <h2>Please enter at least 4 cities to find weather data for</h2>
+        <h3>Seperate each city by comma (ex. 'Boston, New York, London, Berlin')</h3>
+        <form onSubmit={this.handleSubmit}>
+          <input onChange={this.handleChange} value={this.state.citySearchVal} type='text' style={{height: '20px', width: '300px', borderColor: 'black', borderRadius: '5px', fontSize: '15px', marginBottom: '10px'}}/>
+          <input type='submit' style={{borderColor: 'black', borderRadius: '5px', height: '25px'}}/>
+        </form>
+      </div>
+    )
   }
 }
+
+
 
 export default Form
