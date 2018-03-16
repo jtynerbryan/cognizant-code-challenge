@@ -10,7 +10,10 @@ class Form extends React.Component {
 
   componentDidUpdate() {
     if (this.state.cities.length >= 4) {
-      this.props.history.push('/results')
+        this.props.history.push({
+          pathname: "/results",
+          state: { cities: this.state.cities }
+      })
     }
   }
 
