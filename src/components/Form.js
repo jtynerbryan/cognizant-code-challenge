@@ -7,13 +7,6 @@ class Form extends React.Component {
     cities: []
   }
 
-  componentDidMount() {
-    console.log(this.props.location);
-    if (this.props.location.state.message) {
-      alert(this.props.location.state.message)
-    }
-  }
-
   componentDidUpdate() {
     if (this.state.cities.length >= 4) {
       this.props.history.push({
