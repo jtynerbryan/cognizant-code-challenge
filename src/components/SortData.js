@@ -50,6 +50,11 @@ class SortData extends React.Component {
         lowestHumidity: this.sortByLowestHumidity(copy),
         highestWindSpeed: this.sortByHighestWindSpeed(copy)
       })
+    } else if (this.state.highestWindSpeed.name !== '') {
+      this.props.history.push({
+        pathname: "/results",
+        state: { cities: this.state }
+      })
     }
   }
 
