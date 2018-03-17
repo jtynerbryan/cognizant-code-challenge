@@ -1,4 +1,5 @@
 import React from 'react';
+import { sortByHighestMinTemp, sortByLowestMaxTemp, sortByLowestHumidity, sortByHighestWindSpeed, sortBySeaLevelAscending } from '../sortFunctions';
 
 class SortData extends React.Component {
 
@@ -44,11 +45,11 @@ class SortData extends React.Component {
     if (this.state.sortedBySeaLevel.length === 0) {
       let copy = this.state.weatherData.slice(0)
       this.setState({
-        sortedBySeaLevel: this.sortBySeaLevelAscending(copy),
-        highestMinTemp: this.sortByHighestMinTemp(copy),
-        lowestMaxTemp: this.sortByLowestMaxTemp(copy),
-        lowestHumidity: this.sortByLowestHumidity(copy),
-        highestWindSpeed: this.sortByHighestWindSpeed(copy)
+        sortedBySeaLevel: sortBySeaLevelAscending(copy),
+        highestMinTemp: sortByHighestMinTemp(copy),
+        lowestMaxTemp: sortByLowestMaxTemp(copy),
+        lowestHumidity: sortByLowestHumidity(copy),
+        highestWindSpeed: sortByHighestWindSpeed(copy)
       })
     } else if (this.state.highestWindSpeed.name !== '') {
       this.props.history.push({
@@ -56,41 +57,6 @@ class SortData extends React.Component {
         state: { cities: this.state }
       })
     }
-  }
-
-  sortBySeaLevelAscending = (weatherData) => {
-    let sorted = weatherData.sort((a, b) => {
-      return a.seaLevel - b.seaLevel
-    })
-    return sorted
-  }
-
-  sortByHighestMinTemp = (weatherData) => {
-    let sorted = weatherData.sort((a, b) => {
-      return b.minTemp - a.minTemp
-    })
-    return {name: sorted[0].city, minTemp: sorted[0].minTemp}
-  }
-
-  sortByLowestMaxTemp = (weatherData) => {
-    let sorted = weatherData.sort((a, b) => {
-      return a.maxTemp - b.maxTemp
-    })
-    return {name: sorted[0].city, maxTemp: sorted[0].maxTemp}
-  }
-
-  sortByLowestHumidity = (weatherData) => {
-    let sorted = weatherData.sort((a, b) => {
-      return a.humidity - b.humidity
-    })
-    return {name: sorted[0].city, humidity: sorted[0].humidity}
-  }
-
-  sortByHighestWindSpeed = (weatherData) => {
-    let sorted = weatherData.sort((a, b) => {
-      return b.windSpeed - a.windSpeed
-    })
-    return {name: sorted[0].city, windSpeed: sorted[0].windSpeed}
   }
 
   render() {

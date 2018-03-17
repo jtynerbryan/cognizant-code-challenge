@@ -5,7 +5,6 @@ class Results extends React.Component {
   state = this.props.location.state.cities
 
   render() {
-    console.log(this.state);
     let sortedBySeaLevel = this.state.sortedBySeaLevel.map((city, index) => {
       return <div key={index}><h4>{city.city}</h4><h5>sea level: {city.seaLevel}</h5></div>
     })

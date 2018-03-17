@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Form/> renders without changing unexpectedly 1`] = `
+<div
+  style={
+    Object {
+      "margin": "auto",
+      "marginTop": "10px",
+      "textAlign": "center",
+      "width": "50%",
+    }
+  }
+>
+  <h2>
+    Please enter at least 4 cities to find weather data for
+  </h2>
+  <h3>
+    Seperate each city by comma (ex. 'Boston, New York, London, Berlin')
+  </h3>
+  <form
+    onSubmit={[Function]}
+  >
+    <input
+      onChange={[Function]}
+      style={
+        Object {
+          "borderColor": "black",
+          "borderRadius": "5px",
+          "fontSize": "15px",
+          "height": "20px",
+          "marginBottom": "10px",
+          "width": "300px",
+        }
+      }
+      type="text"
+      value=""
+    />
+    <input
+      style={
+        Object {
+          "borderColor": "black",
+          "borderRadius": "5px",
+          "height": "25px",
+        }
+      }
+      type="submit"
+    />
+  </form>
+</div>
+`;
