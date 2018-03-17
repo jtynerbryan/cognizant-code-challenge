@@ -32,11 +32,15 @@ class Loader extends React.Component {
           this.setState({ weatherData: [...this.state.weatherData, res]})
         )
       })
+    } else if (this.state.weatherData.length === this.state.ids.length) {
+      this.props.history.push({
+        pathname: "/sort-weather-data",
+        state: { weatherData: this.state.weatherData }
+      })
     }
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <h1>Loading Weather Data...</h1>

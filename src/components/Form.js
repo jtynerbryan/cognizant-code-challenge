@@ -3,16 +3,15 @@ import React from 'react';
 class Form extends React.Component {
 
   state = {
-    apiKey: 'ce658e43d986d3db6fdafac97e5a006b',
     citySearchVal: '',
     cities: []
   }
 
   componentDidUpdate() {
     if (this.state.cities.length >= 4) {
-        this.props.history.push({
-          pathname: "/loader",
-          state: { cities: this.state.cities }
+      this.props.history.push({
+        pathname: "/loader",
+        state: { cities: this.state.cities }
       })
     }
   }
