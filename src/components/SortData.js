@@ -4,7 +4,7 @@ class SortData extends React.Component {
 
   state = {
     weatherData: [],
-    sortedWeatherData: []
+    sortedBySeaLevel: []
   }
 
   componentDidMount() {
@@ -37,8 +37,23 @@ class SortData extends React.Component {
   }
 
   componentDidUpdate() {
-
+    if (this.state.sortedBySeaLevel.length === 0) {
+      let copy = this.state.weatherData.slice(0)
+      let sortedBySeaLevel = this.sortBySeaLevelAscending(copy)
+      this.setState({
+        sortedBySeaLevel: sortedBySeaLevel
+      })
+    }
   }
+
+  sortBySeaLevelAscending = (weatherData) => {
+    let sorted = weatherData.sort((a, b) => {
+      return a.seaLevel - b.seaLevel
+    })
+    return sorted
+  }
+
+
 
   render() {
     console.log(this.state);
