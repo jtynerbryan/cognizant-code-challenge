@@ -20,9 +20,17 @@ class Loader extends React.Component {
       this.state.cities.forEach(city => {
         fetch('http://localhost:3000/cities?name=' + city)
         .then(res => res.json())
-        .then(res =>
-          this.setState({ ids: [...this.state.ids, res[0].id]})
-        )
+        .then(res => {
+          try {
+            this.setState({ ids: [...this.state.ids, res[0].id]})
+          }
+          catch(error) {
+            this.props.history.push({
+              pathname: "/",
+              state: { message: 'Sorry, one of the cities you entered was not found in the database. Please try again.' }
+            })
+          }
+        })
       })
     } else if (this.state.cities.length === this.state.ids.length && this.state.weatherData.length === 0) {
       this.state.ids.forEach(id => {

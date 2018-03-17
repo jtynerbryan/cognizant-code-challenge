@@ -7,6 +7,13 @@ class Form extends React.Component {
     cities: []
   }
 
+  componentDidMount() {
+    console.log(this.props.location);
+    if (this.props.location.state.message) {
+      alert(this.props.location.state.message)
+    }
+  }
+
   componentDidUpdate() {
     if (this.state.cities.length >= 4) {
       this.props.history.push({
@@ -31,8 +38,11 @@ class Form extends React.Component {
         citySearchVal: ''
       })
     } else {
+      // make sure all words are capitalized
       cities = cities.map(city => {
-        return city.charAt(0).toUpperCase() + city.slice(1)
+        return city.split(' ').map(word => {
+          return word.charAt(0).toUpperCase() + word.slice(1)
+        }).join(' ')
       })
       this.setState({
         cities: cities
