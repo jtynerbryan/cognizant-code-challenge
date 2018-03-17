@@ -42,7 +42,7 @@ class Loader extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{margin: 'auto', textAlign: 'center', width: '50%', marginTop: '20px'}}>
         <h1>Loading Weather Data...</h1>
       </div>
     )

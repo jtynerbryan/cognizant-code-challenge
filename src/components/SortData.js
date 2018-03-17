@@ -4,7 +4,11 @@ class SortData extends React.Component {
 
   state = {
     weatherData: [],
-    sortedBySeaLevel: []
+    sortedBySeaLevel: [],
+    highestMinTemp: { name: '', minTemp: 0 },
+    lowestMaxTemp: { name: '', maxTemp: 0 },
+    lowestHumidity: { name: '', humidity: 0 },
+    highestWindSpeed: { name: '', windSpeed: 0 }
   }
 
   componentDidMount() {
@@ -39,9 +43,12 @@ class SortData extends React.Component {
   componentDidUpdate() {
     if (this.state.sortedBySeaLevel.length === 0) {
       let copy = this.state.weatherData.slice(0)
-      let sortedBySeaLevel = this.sortBySeaLevelAscending(copy)
       this.setState({
-        sortedBySeaLevel: sortedBySeaLevel
+        sortedBySeaLevel: this.sortBySeaLevelAscending(copy),
+        highestMinTemp: this.sortByHighestMinTemp(copy),
+        lowestMaxTemp: this.sortByLowestMaxTemp(copy),
+        lowestHumidity: this.sortByLowestHumidity(copy),
+        highestWindSpeed: this.sortByHighestWindSpeed(copy)
       })
     }
   }
@@ -53,12 +60,37 @@ class SortData extends React.Component {
     return sorted
   }
 
+  sortByHighestMinTemp = (weatherData) => {
+    let sorted = weatherData.sort((a, b) => {
+      return b.minTemp - a.minTemp
+    })
+    return {name: sorted[0].city, minTemp: sorted[0].minTemp}
+  }
 
+  sortByLowestMaxTemp = (weatherData) => {
+    let sorted = weatherData.sort((a, b) => {
+      return a.maxTemp - b.maxTemp
+    })
+    return {name: sorted[0].city, maxTemp: sorted[0].maxTemp}
+  }
+
+  sortByLowestHumidity = (weatherData) => {
+    let sorted = weatherData.sort((a, b) => {
+      return a.humidity - b.humidity
+    })
+    return {name: sorted[0].city, humidity: sorted[0].humidity}
+  }
+
+  sortByHighestWindSpeed = (weatherData) => {
+    let sorted = weatherData.sort((a, b) => {
+      return b.windSpeed - a.windSpeed
+    })
+    return {name: sorted[0].city, windSpeed: sorted[0].windSpeed}
+  }
 
   render() {
-    console.log(this.state);
     return (
-      <div>
+      <div style={{margin: 'auto', textAlign: 'center', width: '50%', marginTop: '20px'}}>
         <h1>Sorting Weather Data...</h1>
       </div>
     )
