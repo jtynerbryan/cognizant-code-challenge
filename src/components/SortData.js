@@ -45,11 +45,11 @@ class SortData extends React.Component {
     if (this.state.sortedBySeaLevel.length === 0) {
       let copy = this.state.weatherData.slice(0)
       this.setState({
-        sortedBySeaLevel: sortBySeaLevelAscending(copy),
         highestMinTemp: sortByHighestMinTemp(copy),
         lowestMaxTemp: sortByLowestMaxTemp(copy),
         lowestHumidity: sortByLowestHumidity(copy),
-        highestWindSpeed: sortByHighestWindSpeed(copy)
+        highestWindSpeed: sortByHighestWindSpeed(copy),
+        sortedBySeaLevel: sortBySeaLevelAscending(copy)
       })
     } else if (this.state.highestWindSpeed.name !== '') {
       this.props.history.push({
